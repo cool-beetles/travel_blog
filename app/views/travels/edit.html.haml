@@ -1,0 +1,9 @@
+%h1 Edit travel:
+= form_for @travel do |f|
+  = render partial: 'form', locals: { f: f }
+  = f.submit "Edit"
+- if @travel.errors.any?
+  %h3 Please fix these errors:
+  %ul
+    - @travel.errors.full_messages.each do |msg|
+      %li= msg

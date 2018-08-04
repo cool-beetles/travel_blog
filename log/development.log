@@ -1,0 +1,2651 @@
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20180802153642)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "first_name" varchar, "last_name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180802153642"]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateAccounts (20180802154318)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "password_digest" varchar, "user_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180802154318"]]
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateTravels (20180802154847)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "travels" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "title" varchar, "description" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180802154847"]]
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-08-02 15:52:57.409015"], ["updated_at", "2018-08-02 15:52:57.409015"]]
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2018-08-02 17:59:27 +0200
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (46.2ms)
+Completed 500 Internal Server Error in 858ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionView::Template::Error (No route matches {:action=>"index", :controller=>"travels"}):
+    13:           = link_to 'Travel Blog', { action: 'index', controller: 'welcome' }, class: 'navbar-brand'
+    14:           %ul.nav.navbar-nav
+    15:             %li
+    16:               = link_to 'My travels', { action: 'index', controller: 'travels' }
+    17:             - if current_user.nil?
+    18:               %li
+    19:                 = link_to 'Login', { action: 'new', controller: 'sessions' }
+  
+app/views/layouts/application.html.haml:16:in `_app_views_layouts_application_html_haml__3544302965043940591_70282753020900'
+Started GET "/" for 127.0.0.1 at 2018-08-02 18:11:40 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (3.3ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Completed 500 Internal Server Error in 134ms (ActiveRecord: 1.5ms)
+
+
+  
+ActionView::Template::Error (Missing partial sessions/_flash_message.html.haml with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :coffee, :jbuilder, :haml]}. Searched in:
+  * "/Users/ada/learning/apps/travel_blog/app/views"
+):
+    25:     %div.container
+    26:       %div.jumbotron
+    27:         %div
+    28:           = render partial: 'sessions/flash_message.html.haml'
+    29:         = yield
+    30:     %div.navbar.navbar-default.navbar-fixed-bottom
+    31:       .container-fluid
+  
+app/views/layouts/application.html.haml:28:in `_app_views_layouts_application_html_haml__3544302965043940591_70282786920840'
+Started GET "/" for 127.0.0.1 at 2018-08-02 18:14:17 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (2.8ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.3ms)
+Completed 200 OK in 69ms (Views: 64.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2018-08-02 18:16:25 +0200
+Processing by AccountsController#new as HTML
+  Rendering accounts/new.html.haml within layouts/application
+  Rendered accounts/new.html.haml within layouts/application (105.6ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (6.0ms)
+Completed 200 OK in 210ms (Views: 157.2ms | ActiveRecord: 1.8ms)
+
+
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/register" for 127.0.0.1 at 2018-08-02 18:43:35 +0200
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by AccountsController#new as HTML
+  Rendering accounts/new.html.haml within layouts/application
+  Rendered accounts/new.html.haml within layouts/application (61.7ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.3ms)
+Completed 200 OK in 650ms (Views: 604.7ms | ActiveRecord: 2.7ms)
+
+
+Started POST "/register" for 127.0.0.1 at 2018-08-02 18:43:38 +0200
+Processing by AccountsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"y6oA3kGmSVvJoI7Rl225fvOqidAg+hsF05gxLwrp4IuyvOp9eW7Cp+w8N5wG8uuTvuUZl2RtdGB37HjKvAHr2Q==", "account"=>{"email"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create"}
+Started GET "/login" for 127.0.0.1 at 2018-08-02 18:43:45 +0200
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAccount Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", ""], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  Rendering accounts/new.html.haml within layouts/application
+  Rendered accounts/new.html.haml within layouts/application (20.7ms)
+Started GET "/login" for 127.0.0.1 at 2018-08-02 18:46:36 +0200
+  [1m[36mUser Load (67.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (25.7ms)
+Completed 200 OK in 177616ms (Views: 113.2ms | ActiveRecord: 69.3ms)
+
+
+Processing by SessionsController#new as HTML
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.haml within layouts/application
+  Rendering sessions/new.html.haml within layouts/application
+  Rendered sessions/new.html.haml within layouts/application (21.9ms)
+  Rendered sessions/new.html.haml within layouts/application (14.6ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (6.3ms)
+Completed 200 OK in 143ms (Views: 138.6ms | ActiveRecord: 0.3ms)
+
+
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (0.2ms)
+Completed 200 OK in 180ms (Views: 174.1ms | ActiveRecord: 0.3ms)
+
+
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddIndexForAccounts (20180802164651)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "accounts" ADD "user_id" integer[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddIndexForAccounts (20180802164651)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "accounts" ADD "user_id" integer[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/login" for 127.0.0.1 at 2018-08-02 18:57:43 +0200
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.haml within layouts/application
+  Rendered sessions/new.html.haml within layouts/application (34.7ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.5ms)
+Completed 200 OK in 418ms (Views: 400.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2018-08-02 18:57:46 +0200
+Processing by AccountsController#new as HTML
+Completed 406 Not Acceptable in 143ms (ActiveRecord: 1.7ms)
+
+
+  
+ActionController::UnknownFormat (AccountsController#new is missing a template for this request format and variant.
+
+request.formats: ["text/html"]
+request.variant: []
+
+NOTE! For XHR/Ajax or API requests, this action would normally respond with 204 No Content: an empty white screen. Since you're loading it in a web browser, we assume that you expected to actually render a template, not nothing, so we're showing an error to be extra-clear. If you expect 204 No Content, carry on. That's what you'll get from an XHR or API request. Give it a shot.):
+  
+actionpack (5.1.6) lib/action_controller/metal/implicit_render.rb:53:in `default_render'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.6) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.6) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.6) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.6) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.6) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.6) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.5) lib/rack/etag.rb:25:in `call'
+rack (2.0.5) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.5) lib/rack/head.rb:12:in `call'
+rack (2.0.5) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.5) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.6) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+web-console (3.6.2) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.6.2) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.6) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.6) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.6) lib/rails/engine.rb:522:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `call'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/register" for 127.0.0.1 at 2018-08-02 18:59:46 +0200
+Processing by AccountsController#new as HTML
+  Rendering accounts/new.html.haml within layouts/application
+  Rendered accounts/new.html.haml within layouts/application (30.3ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (6.2ms)
+Completed 200 OK in 135ms (Views: 128.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/welcome" for 127.0.0.1 at 2018-08-02 19:01:17 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (5.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (6.3ms)
+Completed 200 OK in 97ms (Views: 86.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:01:19 +0200
+Processing by TravelsController#index as HTML
+Completed 406 Not Acceptable in 222ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::UnknownFormat (TravelsController#index is missing a template for this request format and variant.
+
+request.formats: ["text/html"]
+request.variant: []
+
+NOTE! For XHR/Ajax or API requests, this action would normally respond with 204 No Content: an empty white screen. Since you're loading it in a web browser, we assume that you expected to actually render a template, not nothing, so we're showing an error to be extra-clear. If you expect 204 No Content, carry on. That's what you'll get from an XHR or API request. Give it a shot.):
+  
+actionpack (5.1.6) lib/action_controller/metal/implicit_render.rb:53:in `default_render'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.6) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.6) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.6) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.6) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.6) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.6) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.5) lib/rack/etag.rb:25:in `call'
+rack (2.0.5) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.5) lib/rack/head.rb:12:in `call'
+rack (2.0.5) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.5) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.6) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+web-console (3.6.2) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.6.2) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.6) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.6) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.6) lib/rails/engine.rb:522:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `call'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:02:32 +0200
+Processing by TravelsController#index as HTML
+Completed 406 Not Acceptable in 141ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::UnknownFormat (TravelsController#index is missing a template for this request format and variant.
+
+request.formats: ["text/html"]
+request.variant: []
+
+NOTE! For XHR/Ajax or API requests, this action would normally respond with 204 No Content: an empty white screen. Since you're loading it in a web browser, we assume that you expected to actually render a template, not nothing, so we're showing an error to be extra-clear. If you expect 204 No Content, carry on. That's what you'll get from an XHR or API request. Give it a shot.):
+  
+actionpack (5.1.6) lib/action_controller/metal/implicit_render.rb:53:in `default_render'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.6) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.6) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.6) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.6) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.6) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.6) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.5) lib/rack/etag.rb:25:in `call'
+rack (2.0.5) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.5) lib/rack/head.rb:12:in `call'
+rack (2.0.5) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.5) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.6) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+web-console (3.6.2) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.6.2) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.6) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.6) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.6) lib/rails/engine.rb:522:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `call'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2018-08-02 19:02:56 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (4.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.3ms)
+Completed 200 OK in 72ms (Views: 67.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:02:59 +0200
+Processing by TravelsController#index as HTML
+Completed 406 Not Acceptable in 139ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::UnknownFormat (TravelsController#index is missing a template for this request format and variant.
+
+request.formats: ["text/html"]
+request.variant: []
+
+NOTE! For XHR/Ajax or API requests, this action would normally respond with 204 No Content: an empty white screen. Since you're loading it in a web browser, we assume that you expected to actually render a template, not nothing, so we're showing an error to be extra-clear. If you expect 204 No Content, carry on. That's what you'll get from an XHR or API request. Give it a shot.):
+  
+actionpack (5.1.6) lib/action_controller/metal/implicit_render.rb:53:in `default_render'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.6) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.6) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.6) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.6) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.6) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.6) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.5) lib/rack/etag.rb:25:in `call'
+rack (2.0.5) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.5) lib/rack/head.rb:12:in `call'
+rack (2.0.5) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.5) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.6) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+web-console (3.6.2) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.6.2) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.6) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.6) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.6) lib/rails/engine.rb:522:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `call'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:03:29 +0200
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TravelsController#index as HTML
+Completed 406 Not Acceptable in 158ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::UnknownFormat (TravelsController#index is missing a template for this request format and variant.
+
+request.formats: ["text/html"]
+request.variant: []
+
+NOTE! For XHR/Ajax or API requests, this action would normally respond with 204 No Content: an empty white screen. Since you're loading it in a web browser, we assume that you expected to actually render a template, not nothing, so we're showing an error to be extra-clear. If you expect 204 No Content, carry on. That's what you'll get from an XHR or API request. Give it a shot.):
+  
+actionpack (5.1.6) lib/action_controller/metal/implicit_render.rb:53:in `default_render'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.6) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.6) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.6) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.6) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.6) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.6) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.5) lib/rack/etag.rb:25:in `call'
+rack (2.0.5) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.5) lib/rack/head.rb:12:in `call'
+rack (2.0.5) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.5) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.6) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+web-console (3.6.2) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.6.2) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.6) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.6) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.6) lib/rails/engine.rb:522:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `call'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2018-08-02 19:03:36 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (8.7ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.3ms)
+Completed 200 OK in 449ms (Views: 443.1ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2018-08-02 19:03:39 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.haml within layouts/application
+  Rendered sessions/new.html.haml within layouts/application (19.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (3.6ms)
+Completed 200 OK in 78ms (Views: 73.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2018-08-02 19:03:41 +0200
+Processing by AccountsController#new as HTML
+  Rendering accounts/new.html.haml within layouts/application
+  Rendered accounts/new.html.haml within layouts/application (27.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (5.1ms)
+Completed 200 OK in 163ms (Views: 112.9ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:03:42 +0200
+Processing by TravelsController#index as HTML
+Completed 406 Not Acceptable in 158ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::UnknownFormat (TravelsController#index is missing a template for this request format and variant.
+
+request.formats: ["text/html"]
+request.variant: []
+
+NOTE! For XHR/Ajax or API requests, this action would normally respond with 204 No Content: an empty white screen. Since you're loading it in a web browser, we assume that you expected to actually render a template, not nothing, so we're showing an error to be extra-clear. If you expect 204 No Content, carry on. That's what you'll get from an XHR or API request. Give it a shot.):
+  
+actionpack (5.1.6) lib/action_controller/metal/implicit_render.rb:53:in `default_render'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.6) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.6) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.6) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.6) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.6) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.6) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.5) lib/rack/etag.rb:25:in `call'
+rack (2.0.5) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.5) lib/rack/head.rb:12:in `call'
+rack (2.0.5) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.5) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.6) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+web-console (3.6.2) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.6.2) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.6) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.6) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.6) lib/rails/engine.rb:522:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `call'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:07:11 +0200
+Processing by TravelsController#index as HTML
+Completed 406 Not Acceptable in 134ms
+
+
+  
+ActionController::UnknownFormat (TravelsController#index is missing a template for this request format and variant.
+
+request.formats: ["text/html"]
+request.variant: []
+
+NOTE! For XHR/Ajax or API requests, this action would normally respond with 204 No Content: an empty white screen. Since you're loading it in a web browser, we assume that you expected to actually render a template, not nothing, so we're showing an error to be extra-clear. If you expect 204 No Content, carry on. That's what you'll get from an XHR or API request. Give it a shot.):
+  
+actionpack (5.1.6) lib/action_controller/metal/implicit_render.rb:53:in `default_render'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.6) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.6) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.6) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.6) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.6) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.6) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.5) lib/rack/etag.rb:25:in `call'
+rack (2.0.5) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.5) lib/rack/head.rb:12:in `call'
+rack (2.0.5) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.5) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.6) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+web-console (3.6.2) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.6.2) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.6) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.6) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.6) lib/rails/engine.rb:522:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `call'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:09:59 +0200
+Processing by TravelsController#index as HTML
+  Rendering travels/index.html.haml within layouts/application
+  Rendered travels/index.html.haml within layouts/application (5.9ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (18.1ms)
+Completed 200 OK in 101ms (Views: 95.8ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2018-08-02 19:10:03 +0200
+Processing by AccountsController#new as HTML
+  Rendering accounts/new.html.haml within layouts/application
+  Rendered accounts/new.html.haml within layouts/application (15.3ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (10.3ms)
+Completed 200 OK in 132ms (Views: 98.3ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2018-08-02 19:10:49 +0200
+Processing by AccountsController#new as HTML
+  Rendering accounts/new.html.haml within layouts/application
+  Rendered accounts/new.html.haml within layouts/application (11.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.2ms)
+Completed 200 OK in 70ms (Views: 65.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/register" for 127.0.0.1 at 2018-08-02 19:11:50 +0200
+Processing by AccountsController#new as HTML
+  Rendering accounts/new.html.haml within layouts/application
+  Rendered accounts/new.html.haml within layouts/application (11.2ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.6ms)
+Completed 200 OK in 139ms (Views: 62.9ms | ActiveRecord: 2.9ms)
+
+
+Started POST "/register" for 127.0.0.1 at 2018-08-02 19:12:14 +0200
+Processing by AccountsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"4QsUJJutXhqFalwwtwgZq7OagXLGGoQc4WM6apH+0XyYHf6Ho2XV5qD25X0ml0tG/tURNYKN63lFF3OPJxbaLg==", "account"=>{"email"=>"ada@ada.com", "user_attributes"=>{"first_name"=>"Ada", "last_name"=>"Kucinska"}, "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAccount Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "ada@ada.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("first_name", "last_name", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["first_name", "Ada"], ["last_name", "Kucinska"], ["created_at", "2018-08-02 17:12:14.198947"], ["updated_at", "2018-08-02 17:12:14.198947"]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mAccount Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "ada@ada.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "password_digest", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["email", "ada@ada.com"], ["password_digest", "$2a$10$tt.14IYcfcs6CyvPik8G.eyVfea0Zi3i70SYBT2tj/4tjnhkOmTlS"], ["user_id", 1], ["created_at", "2018-08-02 17:12:14.221573"], ["updated_at", "2018-08-02 17:12:14.221573"]]
+  [1m[35m (1.8ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/travels
+Completed 302 Found in 134ms (ActiveRecord: 3.5ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:12:14 +0200
+Processing by TravelsController#index as HTML
+  Rendering travels/index.html.haml within layouts/application
+  Rendered travels/index.html.haml within layouts/application (3.2ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (3.6ms)
+Completed 200 OK in 57ms (Views: 52.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2018-08-02 19:12:24 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.haml within layouts/application
+  Rendered sessions/new.html.haml within layouts/application (7.1ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (5.1ms)
+Completed 200 OK in 63ms (Views: 58.8ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/login?html%5Bclass%5D=form-horizontal" for 127.0.0.1 at 2018-08-02 19:12:32 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"a8QHOva3EcwLtIZ3HzfHOOgJKecvdp+NWYX084qxUACm26ewQ0cofHoVc7nh7zmG7Tac89ahzjpY6ULg1gilNg==", "session"=>{"email"=>"ada@ada.com", "password_digest"=>"[FILTERED]"}, "commit"=>"Log-in", "html"=>{"class"=>"form-horizontal"}}
+  [1m[36mAccount Load (0.3ms)[0m  [1m[34mSELECT  "accounts".* FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "ada@ada.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/travels
+Completed 302 Found in 103ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:12:32 +0200
+Processing by TravelsController#index as HTML
+  Rendering travels/index.html.haml within layouts/application
+  Rendered travels/index.html.haml within layouts/application (2.4ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.0ms)
+Completed 200 OK in 54ms (Views: 50.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/logout" for 127.0.0.1 at 2018-08-02 19:21:47 +0200
+Processing by SessionsController#destroy as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://localhost:3000/
+Completed 302 Found in 4ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-08-02 19:21:47 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (2.9ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.9ms)
+Completed 200 OK in 55ms (Views: 50.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2018-08-02 19:21:49 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.haml within layouts/application
+  Rendered sessions/new.html.haml within layouts/application (6.2ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.7ms)
+Completed 200 OK in 58ms (Views: 53.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:21:52 +0200
+Processing by TravelsController#index as HTML
+  Rendering travels/index.html.haml within layouts/application
+  Rendered travels/index.html.haml within layouts/application (2.7ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (6.6ms)
+Completed 200 OK in 86ms (Views: 79.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2018-08-02 19:21:54 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.haml within layouts/application
+  Rendered sessions/new.html.haml within layouts/application (7.3ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (11.1ms)
+Completed 200 OK in 83ms (Views: 79.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/welcome" for 127.0.0.1 at 2018-08-02 19:23:38 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (3.1ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.0ms)
+Completed 200 OK in 82ms (Views: 76.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:23:41 +0200
+Processing by TravelsController#index as HTML
+  Rendering travels/index.html.haml within layouts/application
+  Rendered travels/index.html.haml within layouts/application (3.1ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.9ms)
+Completed 200 OK in 73ms (Views: 68.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:23:42 +0200
+Processing by TravelsController#index as HTML
+  Rendering travels/index.html.haml within layouts/application
+  Rendered travels/index.html.haml within layouts/application (2.9ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.4ms)
+Completed 200 OK in 128ms (Views: 122.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:23:43 +0200
+Processing by TravelsController#index as HTML
+  Rendering travels/index.html.haml within layouts/application
+  Rendered travels/index.html.haml within layouts/application (3.4ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.5ms)
+Completed 200 OK in 90ms (Views: 83.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:23:44 +0200
+Processing by TravelsController#index as HTML
+  Rendering travels/index.html.haml within layouts/application
+  Rendered travels/index.html.haml within layouts/application (3.8ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.4ms)
+Completed 200 OK in 92ms (Views: 86.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:24:26 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Redirected to http://localhost:3000/login
+Filter chain halted as :require_login rendered or redirected
+Completed 302 Found in 15ms (ActiveRecord: 1.4ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2018-08-02 19:24:26 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.haml within layouts/application
+  Rendered sessions/new.html.haml within layouts/application (15.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (6.0ms)
+Completed 200 OK in 100ms (Views: 94.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:24:28 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Redirected to http://localhost:3000/login
+Filter chain halted as :require_login rendered or redirected
+Completed 302 Found in 4ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2018-08-02 19:24:28 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.haml within layouts/application
+  Rendered sessions/new.html.haml within layouts/application (7.6ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (7.2ms)
+Completed 200 OK in 90ms (Views: 80.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:24:30 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Redirected to http://localhost:3000/login
+Filter chain halted as :require_login rendered or redirected
+Completed 302 Found in 3ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2018-08-02 19:24:30 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.haml within layouts/application
+  Rendered sessions/new.html.haml within layouts/application (7.5ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (12.7ms)
+Completed 200 OK in 81ms (Views: 76.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 19:24:31 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+Redirected to http://localhost:3000/login
+Filter chain halted as :require_login rendered or redirected
+Completed 302 Found in 4ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2018-08-02 19:24:31 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.haml within layouts/application
+  Rendered sessions/new.html.haml within layouts/application (7.5ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (6.1ms)
+Completed 200 OK in 76ms (Views: 72.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-08-02 19:24:37 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (3.2ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.0ms)
+Completed 200 OK in 61ms (Views: 56.1ms | ActiveRecord: 0.3ms)
+
+
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddColumnForTravel (20180802173008)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "travels" ADD "created_at" datetime[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Started GET "/" for 127.0.0.1 at 2018-08-02 20:38:39 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (2.8ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.5ms)
+Completed 200 OK in 92ms (Views: 88.3ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2018-08-02 20:38:41 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.haml within layouts/application
+  Rendered sessions/new.html.haml within layouts/application (7.1ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.0ms)
+Completed 200 OK in 61ms (Views: 57.3ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/login?html%5Bclass%5D=form-horizontal" for 127.0.0.1 at 2018-08-02 20:38:51 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"uejqRqS7rs6IAFmo8SDTgtX7aIyKxpuAaMaXLYrIRE93Ipdoks9YuhJHPB1DYDu3WWCRhabxR/98t5ma2LUpkg==", "session"=>{"email"=>"ada@ada.com", "password_digest"=>"[FILTERED]"}, "commit"=>"Log-in", "html"=>{"class"=>"form-horizontal"}}
+  [1m[36mAccount Load (0.5ms)[0m  [1m[34mSELECT  "accounts".* FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "ada@ada.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/travels
+Completed 302 Found in 122ms (ActiveRecord: 2.3ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 20:38:51 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  Rendered travels/index.html.haml within layouts/application (2.8ms)
+  Rendered sessions/_flash_message.html.haml (4.1ms)
+Completed 200 OK in 118ms (Views: 49.8ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 20:38:57 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  Rendered travels/index.html.haml within layouts/application (8.6ms)
+  Rendered sessions/_flash_message.html.haml (4.7ms)
+Completed 200 OK in 64ms (Views: 57.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/welcome" for 127.0.0.1 at 2018-08-02 20:38:58 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (3.2ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (8.8ms)
+Completed 200 OK in 88ms (Views: 81.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 20:39:01 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  Rendered travels/index.html.haml within layouts/application (3.6ms)
+  Rendered sessions/_flash_message.html.haml (7.6ms)
+Completed 200 OK in 99ms (Views: 94.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/welcome" for 127.0.0.1 at 2018-08-02 20:39:04 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (3.6ms)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (5.7ms)
+Completed 200 OK in 99ms (Views: 94.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-02 20:39:07 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  Rendered travels/index.html.haml within layouts/application (5.4ms)
+  Rendered sessions/_flash_message.html.haml (6.0ms)
+Completed 200 OK in 86ms (Views: 80.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2018-08-03 17:37:15 +0200
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (24.5ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.8ms)
+Completed 200 OK in 701ms (Views: 677.7ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 17:37:30 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (13.5ms)
+  Rendered sessions/_flash_message.html.haml (3.7ms)
+Completed 200 OK in 126ms (Views: 65.2ms | ActiveRecord: 3.4ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 17:37:33 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 406 Not Acceptable in 162ms (ActiveRecord: 2.7ms)
+
+
+  
+ActionController::UnknownFormat (TravelsController#new is missing a template for this request format and variant.
+
+request.formats: ["text/html"]
+request.variant: []
+
+NOTE! For XHR/Ajax or API requests, this action would normally respond with 204 No Content: an empty white screen. Since you're loading it in a web browser, we assume that you expected to actually render a template, not nothing, so we're showing an error to be extra-clear. If you expect 204 No Content, carry on. That's what you'll get from an XHR or API request. Give it a shot.):
+  
+actionpack (5.1.6) lib/action_controller/metal/implicit_render.rb:53:in `default_render'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.6) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.6) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.6) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.6) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.6) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.6) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.5) lib/rack/etag.rb:25:in `call'
+rack (2.0.5) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.5) lib/rack/head.rb:12:in `call'
+rack (2.0.5) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.5) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.6) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+web-console (3.6.2) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.6.2) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.6) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.6) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.6) lib/rails/engine.rb:522:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `call'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 17:37:39 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.8ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (9.2ms)
+  Rendered sessions/_flash_message.html.haml (4.7ms)
+Completed 200 OK in 74ms (Views: 68.1ms | ActiveRecord: 1.0ms)
+
+
+  [1m[36mTravel Load (2.5ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddIndexForTravels (20180803180947)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "travels" ADD "post_date" date[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_travels_on_post_date" ON "travels" ("post_date")[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180803180947"]]
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:13:18 +0200
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (40.0ms)
+  Rendered sessions/_flash_message.html.haml (4.2ms)
+Completed 200 OK in 701ms (Views: 598.0ms | ActiveRecord: 2.4ms)
+
+
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:15:06 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.4ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (6.6ms)
+  Rendered sessions/_flash_message.html.haml (4.3ms)
+Completed 200 OK in 79ms (Views: 72.5ms | ActiveRecord: 1.2ms)
+
+
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT "travels".* FROM "travels"[0m
+  [1m[36mTravel Load (0.5ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mTravel Load (0.4ms)[0m  [1m[34mSELECT "travels".* FROM "travels"[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "travels" ("user_id", "title", "created_at", "updated_at", "post_date") VALUES (?, ?, ?, ?, ?)[0m  [["user_id", 1], ["title", "London"], ["created_at", "2018-08-03 18:17:24.336478"], ["updated_at", "2018-08-03 18:17:24.336478"], ["post_date", "2018-04-24"]]
+  [1m[35m (2.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTravel Load (0.5ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" LIMIT ?[0m  [["LIMIT", 11]]
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:17:40 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.4ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (63.9ms)
+Completed 500 Internal Server Error in 83ms (ActiveRecord: 2.1ms)
+
+
+  
+ActionView::Template::Error (undefined method `date' for #<Travel:0x007f8db922d730>):
+     5:   %ul
+     6:     - @travels.each do |t|
+     7:       %li
+     8:         = link_to t.title, t.date, t
+     9: %div.btn-toolbar
+    10:   %div.btn-group-horizontal
+    11:     %p= link_to('Add new travel', new_travel_path, class: "btn btn-success")
+  
+app/views/travels/index.html.haml:8:in `block in _app_views_travels_index_html_haml__810620294584175416_70123336427560'
+app/views/travels/index.html.haml:6:in `_app_views_travels_index_html_haml__810620294584175416_70123336427560'
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:18:02 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.4ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (14.7ms)
+Completed 500 Internal Server Error in 35ms (ActiveRecord: 0.8ms)
+
+
+  
+ActionView::Template::Error (undefined method `date' for #<Travel:0x007f8db44670f0>):
+     6:     - @travels.each do |t|
+     7:       %li
+     8:         = link_to t.title, t
+     9:         = link_to t.date, t
+    10: %div.btn-toolbar
+    11:   %div.btn-group-horizontal
+    12:     %p= link_to('Add new travel', new_travel_path, class: "btn btn-success")
+  
+app/views/travels/index.html.haml:9:in `block in _app_views_travels_index_html_haml__810620294584175416_70123303377940'
+app/views/travels/index.html.haml:6:in `_app_views_travels_index_html_haml__810620294584175416_70123303377940'
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:18:21 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (8.6ms)
+  Rendered sessions/_flash_message.html.haml (4.3ms)
+Completed 200 OK in 85ms (Views: 78.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:18:24 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.5ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 406 Not Acceptable in 167ms (ActiveRecord: 0.8ms)
+
+
+  
+ActionController::UnknownFormat (TravelsController#show is missing a template for this request format and variant.
+
+request.formats: ["text/html"]
+request.variant: []
+
+NOTE! For XHR/Ajax or API requests, this action would normally respond with 204 No Content: an empty white screen. Since you're loading it in a web browser, we assume that you expected to actually render a template, not nothing, so we're showing an error to be extra-clear. If you expect 204 No Content, carry on. That's what you'll get from an XHR or API request. Give it a shot.):
+  
+actionpack (5.1.6) lib/action_controller/metal/implicit_render.rb:53:in `default_render'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.6) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.6) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.6) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.6) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.6) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.6) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.5) lib/rack/etag.rb:25:in `call'
+rack (2.0.5) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.5) lib/rack/head.rb:12:in `call'
+rack (2.0.5) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.5) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.6) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+web-console (3.6.2) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.6.2) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.6) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.6) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.6) lib/rails/engine.rb:522:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `call'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:18:28 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.5ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (9.8ms)
+  Rendered sessions/_flash_message.html.haml (4.0ms)
+Completed 200 OK in 75ms (Views: 69.3ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:18:47 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (13.9ms)
+Completed 500 Internal Server Error in 31ms (ActiveRecord: 0.5ms)
+
+
+  
+ActionView::Template::Error (undefined method `date' for #<Travel:0x007f8db433add0>):
+     6:     - @travels.each do |t|
+     7:       %li
+     8:         = link_to t.title, t
+     9:         = link_to t.date, t
+    10: %div.btn-toolbar
+    11:   %div.btn-group-horizontal
+    12:     %p= link_to('Add new travel', new_travel_path, class: "btn btn-success")
+  
+app/views/travels/index.html.haml:9:in `block in _app_views_travels_index_html_haml__810620294584175416_70123296662360'
+app/views/travels/index.html.haml:6:in `_app_views_travels_index_html_haml__810620294584175416_70123296662360'
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:19:06 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.4ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (8.0ms)
+  Rendered sessions/_flash_message.html.haml (4.5ms)
+Completed 200 OK in 74ms (Views: 67.0ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:19:15 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.4ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 406 Not Acceptable in 156ms (ActiveRecord: 0.6ms)
+
+
+  
+ActionController::UnknownFormat (TravelsController#show is missing a template for this request format and variant.
+
+request.formats: ["text/html"]
+request.variant: []
+
+NOTE! For XHR/Ajax or API requests, this action would normally respond with 204 No Content: an empty white screen. Since you're loading it in a web browser, we assume that you expected to actually render a template, not nothing, so we're showing an error to be extra-clear. If you expect 204 No Content, carry on. That's what you'll get from an XHR or API request. Give it a shot.):
+  
+actionpack (5.1.6) lib/action_controller/metal/implicit_render.rb:53:in `default_render'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `tap'
+actionpack (5.1.6) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:186:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rendering.rb:30:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+activesupport (5.1.6) lib/active_support/callbacks.rb:131:in `run_callbacks'
+actionpack (5.1.6) lib/abstract_controller/callbacks.rb:19:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/rescue.rb:20:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `block in instrument'
+activesupport (5.1.6) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+activesupport (5.1.6) lib/active_support/notifications.rb:166:in `instrument'
+actionpack (5.1.6) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+actionpack (5.1.6) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+activerecord (5.1.6) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+actionpack (5.1.6) lib/abstract_controller/base.rb:124:in `process'
+actionview (5.1.6) lib/action_view/rendering.rb:30:in `process'
+actionpack (5.1.6) lib/action_controller/metal.rb:189:in `dispatch'
+actionpack (5.1.6) lib/action_controller/metal.rb:253:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `each'
+actionpack (5.1.6) lib/action_dispatch/journey/router.rb:33:in `serve'
+actionpack (5.1.6) lib/action_dispatch/routing/route_set.rb:844:in `call'
+rack (2.0.5) lib/rack/etag.rb:25:in `call'
+rack (2.0.5) lib/rack/conditional_get.rb:25:in `call'
+rack (2.0.5) lib/rack/head.rb:12:in `call'
+rack (2.0.5) lib/rack/session/abstract/id.rb:232:in `context'
+rack (2.0.5) lib/rack/session/abstract/id.rb:226:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+activerecord (5.1.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+activesupport (5.1.6) lib/active_support/callbacks.rb:97:in `run_callbacks'
+actionpack (5.1.6) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+web-console (3.6.2) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.6.2) lib/web_console/middleware.rb:30:in `block in call'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `catch'
+web-console (3.6.2) lib/web_console/middleware.rb:20:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.6) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.6) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.6) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.5) lib/rack/method_override.rb:22:in `call'
+rack (2.0.5) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.6) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.6) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.5) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.6) lib/rails/engine.rb:522:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `call'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:19:18 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (11.5ms)
+  Rendered sessions/_flash_message.html.haml (6.1ms)
+Completed 200 OK in 106ms (Views: 100.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:22:35 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.5ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (9.2ms)
+Completed 500 Internal Server Error in 33ms (ActiveRecord: 0.7ms)
+
+
+  
+ActionView::Template::Error (undefined method `title' for nil:NilClass):
+    1: %h1= @treasure.title
+    2: %p
+    3:   %strong Description:
+    4:   = @treasure.description
+  
+app/views/travels/show.html.haml:1:in `_app_views_travels_show_html_haml__3839741655300228001_70123337986000'
+Started GET "/" for 127.0.0.1 at 2018-08-03 20:23:01 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (3.4ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (3.4ms)
+Completed 200 OK in 58ms (Views: 54.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:23:04 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (8.4ms)
+  Rendered sessions/_flash_message.html.haml (4.7ms)
+Completed 200 OK in 78ms (Views: 72.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:23:06 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (6.9ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 0.7ms)
+
+
+  
+ActionView::Template::Error (undefined method `title' for nil:NilClass):
+    1: %h1= @treasure.title
+    2: %p
+    3:   %strong Description:
+    4:   = @treasure.description
+  
+app/views/travels/show.html.haml:1:in `_app_views_travels_show_html_haml__3839741655300228001_70123336857040'
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:23:55 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (5.5ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 0.5ms)
+
+
+  
+SyntaxError (/Users/ada/learning/apps/travel_blog/app/views/travels/show.html.haml:2: syntax error, unexpected ')', expecting '='
+)).to_s);).to_s);; _hamlout.buf...
+  ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/show.html.haml:9: syntax error, unexpected keyword_ensure, expecting ')'
+...:Util.html_safe(_erbout);ensure;@haml_buffer = @haml_buffer....
+...                               ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/show.html.haml:9: syntax error, unexpected keyword_end, expecting ')'
+...uffer.upper if @haml_buffer;end;
+...                               ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/show.html.haml:12: syntax error, unexpected keyword_end, expecting ')'):
+  
+app/views/travels/show.html.haml:2: syntax error, unexpected ')', expecting '='
+app/views/travels/show.html.haml:9: syntax error, unexpected keyword_ensure, expecting ')'
+app/views/travels/show.html.haml:9: syntax error, unexpected keyword_end, expecting ')'
+app/views/travels/show.html.haml:12: syntax error, unexpected keyword_end, expecting ')'
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:24:42 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (2.7ms)
+Completed 500 Internal Server Error in 25ms (ActiveRecord: 0.5ms)
+
+
+  
+ActionView::Template::Error (Illegal nesting: content can't be both given on the same line as %h1 and nested within it.):
+    1: %h1= @travel.title 
+    2:    =@travel.post_date
+    3: %p
+    4:   %strong Description:
+    5:   = @travel.description
+  
+app/views/travels/show.html.haml:2
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:24:57 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (3.0ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 0.4ms)
+
+
+  
+ActionView::Template::Error (Illegal nesting: content can't be both given on the same line as %h1 and nested within it.):
+    1: %h1= @travel.title 
+    2:   =@travel.post_date
+    3: %p
+    4:   %strong Description:
+    5:   = @travel.description
+  
+app/views/travels/show.html.haml:2
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:25:44 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (5.4ms)
+  Rendered sessions/_flash_message.html.haml (4.0ms)
+Completed 200 OK in 63ms (Views: 57.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:26:07 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (7.4ms)
+  Rendered sessions/_flash_message.html.haml (4.2ms)
+Completed 200 OK in 69ms (Views: 59.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:26:25 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (12.7ms)
+  Rendered sessions/_flash_message.html.haml (4.2ms)
+Completed 200 OK in 70ms (Views: 61.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:26:28 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (12.9ms)
+  Rendered sessions/_flash_message.html.haml (5.3ms)
+Completed 200 OK in 124ms (Views: 100.0ms | ActiveRecord: 0.4ms)
+
+
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to FixColumnNameToTravel (20180803183138)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TEMPORARY TABLE "atravels" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer DEFAULT NULL, "title" varchar DEFAULT NULL, "description" varchar DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "travel_date" date DEFAULT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_travels_on_post_date' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_travels_on_post_date' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "tindex_atravels_on_post_date" ON "atravels" ("travel_date")[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "atravels" ("id","user_id","title","description","created_at","updated_at","travel_date")
+                     SELECT "id","user_id","title","description","created_at","updated_at","post_date" FROM "travels"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "travels"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "travels" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer DEFAULT NULL, "title" varchar DEFAULT NULL, "description" varchar DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "travel_date" date DEFAULT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='tindex_atravels_on_post_date' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='tindex_atravels_on_post_date' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_travels_on_post_date" ON "travels" ("travel_date")[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "travels" ("id","user_id","title","description","created_at","updated_at","travel_date")
+                     SELECT "id","user_id","title","description","created_at","updated_at","travel_date" FROM "atravels"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "atravels"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_travels_on_post_date' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_travels_on_post_date' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_travels_on_post_date' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_travels_on_post_date' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_travels_on_post_date' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_travels_on_post_date' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_travels_on_travel_date" ON "travels" ("travel_date")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP INDEX "index_travels_on_post_date"[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180803183138"]]
+  [1m[35m (2.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:33:14 +0200
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.4ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (5.4ms)
+  Rendered sessions/_flash_message.html.haml (4.2ms)
+Completed 200 OK in 134ms (Views: 81.4ms | ActiveRecord: 3.1ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:37:52 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (10.6ms)
+  Rendered sessions/_flash_message.html.haml (4.1ms)
+Completed 200 OK in 81ms (Views: 67.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:37:54 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (41.5ms)
+  Rendered travels/new.html.haml within layouts/application (54.2ms)
+  Rendered sessions/_flash_message.html.haml (7.5ms)
+Completed 200 OK in 135ms (Views: 124.7ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:40:42 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (7.2ms)
+  Rendered travels/new.html.haml within layouts/application (25.6ms)
+  Rendered sessions/_flash_message.html.haml (4.7ms)
+Completed 200 OK in 130ms (Views: 123.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:41:46 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (6.0ms)
+  Rendered travels/new.html.haml within layouts/application (15.9ms)
+  Rendered sessions/_flash_message.html.haml (4.3ms)
+Completed 200 OK in 71ms (Views: 65.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:46:24 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (5.0ms)
+  Rendered travels/new.html.haml within layouts/application (17.0ms)
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 0.6ms)
+
+
+  
+SyntaxError (/Users/ada/learning/apps/travel_blog/app/views/travels/_form.html.haml:12: syntax error, unexpected tINTEGER, expecting tSTRING_CONTENT or tSTRING_DBEG or tSTRING_DVAR or tSTRING_END):
+  
+app/views/travels/_form.html.haml:12: syntax error, unexpected tINTEGER, expecting tSTRING_CONTENT or tSTRING_DBEG or tSTRING_DVAR or tSTRING_END
+app/views/travels/new.html.haml:3:in `block in _app_views_travels_new_html_haml___1236857408144642337_70123323234080'
+app/views/travels/new.html.haml:2:in `_app_views_travels_new_html_haml___1236857408144642337_70123323234080'
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:46:39 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (8.3ms)
+  Rendered travels/new.html.haml within layouts/application (32.9ms)
+  Rendered sessions/_flash_message.html.haml (4.8ms)
+Completed 200 OK in 151ms (Views: 127.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:47:14 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (5.2ms)
+  Rendered travels/new.html.haml within layouts/application (17.1ms)
+Completed 500 Internal Server Error in 34ms (ActiveRecord: 0.2ms)
+
+
+  
+SyntaxError (/Users/ada/learning/apps/travel_blog/app/views/travels/_form.html.haml:12: syntax error, unexpected tINTEGER, expecting tSTRING_CONTENT or tSTRING_DBEG or tSTRING_DVAR or tSTRING_END
+...ption, rows: :"10", width: :200 px
+...                               ^):
+  
+app/views/travels/_form.html.haml:12: syntax error, unexpected tINTEGER, expecting tSTRING_CONTENT or tSTRING_DBEG or tSTRING_DVAR or tSTRING_END
+app/views/travels/new.html.haml:3:in `block in _app_views_travels_new_html_haml___1236857408144642337_70123305441140'
+app/views/travels/new.html.haml:2:in `_app_views_travels_new_html_haml___1236857408144642337_70123305441140'
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:47:24 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (8.1ms)
+  Rendered travels/new.html.haml within layouts/application (20.2ms)
+  Rendered sessions/_flash_message.html.haml (4.3ms)
+Completed 200 OK in 86ms (Views: 79.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:47:37 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (7.0ms)
+  Rendered travels/new.html.haml within layouts/application (16.2ms)
+  Rendered sessions/_flash_message.html.haml (4.9ms)
+Completed 200 OK in 81ms (Views: 74.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:48:54 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (7.6ms)
+  Rendered travels/new.html.haml within layouts/application (19.6ms)
+  Rendered sessions/_flash_message.html.haml (4.4ms)
+Completed 200 OK in 78ms (Views: 72.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:51:29 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (9.9ms)
+  Rendered travels/new.html.haml within layouts/application (25.9ms)
+Completed 500 Internal Server Error in 45ms (ActiveRecord: 0.4ms)
+
+
+  
+ActionView::Template::Error (No route matches {:action=>"show", :controller=>"travels"}, missing required keys: [:id]):
+     8:       %ul
+     9:         - @travel.errors.full_messages.each do |msg|
+    10:           %li= msg
+    11: = link_to( 'Back', travel_path, class: "btn btn-success" )
+  
+app/views/travels/new.html.haml:11:in `_app_views_travels_new_html_haml___1236857408144642337_70123325067920'
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:52:08 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (9.4ms)
+  Rendered travels/new.html.haml within layouts/application (42.0ms)
+Completed 500 Internal Server Error in 64ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (No route matches {:action=>"show", :controller=>"travels"}, missing required keys: [:id]):
+     8:       %ul
+     9:         - @travel.errors.full_messages.each do |msg|
+    10:           %li= msg
+    11: %p= link_to( 'Back', travel_path, class: "btn btn-success" )
+  
+app/views/travels/new.html.haml:11:in `_app_views_travels_new_html_haml___1236857408144642337_70123335745740'
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:52:30 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (7.8ms)
+  Rendered travels/new.html.haml within layouts/application (25.7ms)
+Completed 500 Internal Server Error in 42ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (No route matches {:action=>"show", :controller=>"travels"}, missing required keys: [:id]):
+     8:       %ul
+     9:         - @travel.errors.full_messages.each do |msg|
+    10:           %li= msg
+    11: %p= link_to('Back', travel_path, class: "btn btn-success")
+  
+app/views/travels/new.html.haml:11:in `_app_views_travels_new_html_haml___1236857408144642337_70123337575940'
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:53:09 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (6.1ms)
+  Rendered travels/new.html.haml within layouts/application (15.9ms)
+  Rendered sessions/_flash_message.html.haml (4.0ms)
+Completed 200 OK in 74ms (Views: 68.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:53:14 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (18.4ms)
+  Rendered sessions/_flash_message.html.haml (4.5ms)
+Completed 200 OK in 76ms (Views: 67.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 20:53:16 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (11.7ms)
+  Rendered travels/new.html.haml within layouts/application (23.4ms)
+  Rendered sessions/_flash_message.html.haml (25.6ms)
+Completed 200 OK in 138ms (Views: 131.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:54:00 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (9.3ms)
+  Rendered sessions/_flash_message.html.haml (7.9ms)
+Completed 200 OK in 127ms (Views: 119.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:54:02 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.4ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (5.4ms)
+  Rendered sessions/_flash_message.html.haml (4.7ms)
+Completed 200 OK in 94ms (Views: 82.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/travels/1/edit" for 127.0.0.1 at 2018-08-03 20:54:03 +0200
+Processing by TravelsController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/edit.html.haml within layouts/application
+  Rendered travels/_form.html.haml (6.3ms)
+  Rendered travels/edit.html.haml within layouts/application (15.8ms)
+  Rendered sessions/_flash_message.html.haml (5.0ms)
+Completed 200 OK in 88ms (Views: 78.6ms | ActiveRecord: 0.5ms)
+
+
+Started PATCH "/travels/1" for 127.0.0.1 at 2018-08-03 20:54:07 +0200
+Processing by TravelsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"4tf7IXzDVkxid6T9I8ig3t4u7H+pbXCby6suSRclgKiXUURp2ySVtE+lJUWx8pGnK6bXFgvinf7U89kGULgMjw==", "travel"=>{"title"=>"London", "travel_date"=>"2018-04-24", "description"=>""}, "commit"=>"Edit", "id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: :travel_date
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.9ms)[0m  [1m[33mUPDATE "travels" SET "description" = ?, "updated_at" = ? WHERE "travels"."id" = ?[0m  [["description", ""], ["updated_at", "2018-08-03 18:54:07.802978"], ["id", 1]]
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/travels/1
+Completed 302 Found in 19ms (ActiveRecord: 3.2ms)
+
+
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:54:07 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (6.8ms)
+  Rendered sessions/_flash_message.html.haml (3.9ms)
+Completed 200 OK in 66ms (Views: 59.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/travels/1/edit" for 127.0.0.1 at 2018-08-03 20:54:10 +0200
+Processing by TravelsController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/edit.html.haml within layouts/application
+  Rendered travels/_form.html.haml (5.8ms)
+  Rendered travels/edit.html.haml within layouts/application (13.9ms)
+  Rendered sessions/_flash_message.html.haml (4.7ms)
+Completed 200 OK in 77ms (Views: 66.0ms | ActiveRecord: 0.6ms)
+
+
+Started PATCH "/travels/1" for 127.0.0.1 at 2018-08-03 20:54:27 +0200
+Processing by TravelsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"IbPJazNX6feuq3hubUWyABtzz88evcTB6fzYyRhVFllUNXYjlLAqD4N5+db/f4N57vv0prwyKaT2pC+GX8iafg==", "travel"=>{"title"=>"London", "travel_date"=>"2018-04-24", "description"=>"It was my first holiday in London."}, "commit"=>"Edit", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Unpermitted parameter: :travel_date
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (1.5ms)[0m  [1m[33mUPDATE "travels" SET "description" = ?, "updated_at" = ? WHERE "travels"."id" = ?[0m  [["description", "It was my first holiday in London."], ["updated_at", "2018-08-03 18:54:27.283997"], ["id", 1]]
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/travels/1
+Completed 302 Found in 20ms (ActiveRecord: 4.0ms)
+
+
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:54:27 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (5.3ms)
+  Rendered sessions/_flash_message.html.haml (3.9ms)
+Completed 200 OK in 60ms (Views: 53.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:54:29 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (12.8ms)
+  Rendered sessions/_flash_message.html.haml (4.3ms)
+Completed 200 OK in 74ms (Views: 65.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:54:30 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (6.0ms)
+  Rendered sessions/_flash_message.html.haml (4.5ms)
+Completed 200 OK in 83ms (Views: 76.8ms | ActiveRecord: 0.4ms)
+
+
+Started DELETE "/travels/1" for 127.0.0.1 at 2018-08-03 20:54:56 +0200
+Processing by TravelsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"SCkL2jipj9seP143Ntn8BTqY//frBEygRSSXB2ay3cl0f5tKiskQ2Rc/Nc9xKyoQVe/jKolpFGslw2sz3JgqxA==", "id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.5ms)
+
+
+  
+NoMethodError (undefined method `trashed=' for #<Travel:0x007f8dbb955c40>):
+  
+app/controllers/travels_controller.rb:42:in `destroy'
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:56:05 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (5.9ms)
+  Rendered sessions/_flash_message.html.haml (5.4ms)
+Completed 200 OK in 133ms (Views: 58.1ms | ActiveRecord: 2.9ms)
+
+
+Started DELETE "/travels/1" for 127.0.0.1 at 2018-08-03 20:56:09 +0200
+Processing by TravelsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"+jXFKZSVAuXeTUYJOmYASDbYIv37tLxWsHpkAwlvngzGY1W5JvWd59dNLfF9lNZdWa8+IJnZ5J3QnZg3s0VpAQ==", "id"=>"1"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.8ms)
+
+
+  
+NoMethodError (undefined method `trashed' for #<Travel:0x007f8dbaf62a80>):
+  
+app/controllers/travels_controller.rb:42:in `destroy'
+Started GET "/travels/" for 127.0.0.1 at 2018-08-03 20:56:29 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.4ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (32.6ms)
+  Rendered sessions/_flash_message.html.haml (5.8ms)
+Completed 200 OK in 130ms (Views: 93.7ms | ActiveRecord: 4.1ms)
+
+
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-03 20:56:31 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (5.2ms)
+  Rendered sessions/_flash_message.html.haml (5.0ms)
+Completed 200 OK in 71ms (Views: 56.9ms | ActiveRecord: 0.7ms)
+
+
+Started DELETE "/travels/1" for 127.0.0.1 at 2018-08-03 20:56:34 +0200
+Processing by TravelsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"uBk/tg+3qEfru5k1VJuoC7g6KKj7+BeXW+BKGcMBICCET68mvdc3ReK78s0TaX4e1000dZmVT1w7B7YteSvXLQ==", "id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (3.2ms)[0m  [1m[31mDELETE FROM "travels" WHERE "travels"."id" = ?[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/travels
+Completed 302 Found in 14ms (ActiveRecord: 4.2ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 20:56:34 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (6.8ms)
+  Rendered sessions/_flash_message.html.haml (4.8ms)
+Completed 200 OK in 97ms (Views: 91.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 21:00:55 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (9.6ms)
+  Rendered sessions/_flash_message.html.haml (4.7ms)
+Completed 200 OK in 103ms (Views: 64.6ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:00:57 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (4.6ms)
+  Rendered travels/new.html.haml within layouts/application (13.2ms)
+Completed 500 Internal Server Error in 61ms (ActiveRecord: 2.1ms)
+
+
+  
+SyntaxError (/Users/ada/learning/apps/travel_blog/app/views/travels/_form.html.haml:12: syntax error, unexpected ':', expecting '}'
+...f.text_area.form-control{style: "min-width:800px" }, :descri...
+...                               ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/_form.html.haml:12: syntax error, unexpected ',', expecting ')'
+...rol{style: "min-width:800px" }, :description, rows: :"10"
+...                               ^):
+  
+app/views/travels/_form.html.haml:12: syntax error, unexpected ':', expecting '}'
+app/views/travels/_form.html.haml:12: syntax error, unexpected ',', expecting ')'
+app/views/travels/new.html.haml:3:in `block in _app_views_travels_new_html_haml___1236857408144642337_70123323018880'
+app/views/travels/new.html.haml:2:in `_app_views_travels_new_html_haml___1236857408144642337_70123323018880'
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:02:05 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (5.3ms)
+  Rendered travels/new.html.haml within layouts/application (13.3ms)
+  Rendered sessions/_flash_message.html.haml (4.0ms)
+Completed 200 OK in 67ms (Views: 61.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:02:17 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (11.6ms)
+  Rendered travels/new.html.haml within layouts/application (22.2ms)
+  Rendered sessions/_flash_message.html.haml (6.5ms)
+Completed 200 OK in 120ms (Views: 112.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:03:59 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (9.0ms)
+  Rendered travels/new.html.haml within layouts/application (19.8ms)
+  Rendered sessions/_flash_message.html.haml (4.8ms)
+Completed 200 OK in 88ms (Views: 79.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:04:24 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (13.1ms)
+  Rendered travels/new.html.haml within layouts/application (26.5ms)
+  Rendered sessions/_flash_message.html.haml (5.0ms)
+Completed 200 OK in 100ms (Views: 95.1ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:05:32 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (11.7ms)
+  Rendered travels/new.html.haml within layouts/application (21.5ms)
+  Rendered sessions/_flash_message.html.haml (4.7ms)
+Completed 200 OK in 86ms (Views: 79.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:06:04 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (7.1ms)
+  Rendered travels/new.html.haml within layouts/application (17.3ms)
+  Rendered sessions/_flash_message.html.haml (4.4ms)
+Completed 200 OK in 81ms (Views: 74.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:06:39 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (7.4ms)
+  Rendered travels/new.html.haml within layouts/application (20.5ms)
+  Rendered sessions/_flash_message.html.haml (6.1ms)
+Completed 200 OK in 87ms (Views: 79.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:06:50 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (11.7ms)
+  Rendered travels/new.html.haml within layouts/application (22.3ms)
+  Rendered sessions/_flash_message.html.haml (4.5ms)
+Completed 200 OK in 106ms (Views: 97.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:07:15 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (8.4ms)
+  Rendered travels/new.html.haml within layouts/application (19.0ms)
+  Rendered sessions/_flash_message.html.haml (5.2ms)
+Completed 200 OK in 86ms (Views: 79.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:08:48 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (7.7ms)
+  Rendered travels/new.html.haml within layouts/application (18.6ms)
+  Rendered sessions/_flash_message.html.haml (4.2ms)
+Completed 200 OK in 84ms (Views: 77.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:09:04 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (9.0ms)
+  Rendered travels/new.html.haml within layouts/application (19.2ms)
+  Rendered sessions/_flash_message.html.haml (4.7ms)
+Completed 200 OK in 86ms (Views: 79.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:11:23 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (14.1ms)
+  Rendered travels/new.html.haml within layouts/application (26.4ms)
+  Rendered sessions/_flash_message.html.haml (15.9ms)
+Completed 200 OK in 139ms (Views: 132.2ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:13:25 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (10.3ms)
+  Rendered travels/new.html.haml within layouts/application (21.6ms)
+  Rendered sessions/_flash_message.html.haml (5.4ms)
+Completed 200 OK in 88ms (Views: 82.0ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 21:13:30 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.5ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (11.5ms)
+  Rendered sessions/_flash_message.html.haml (5.0ms)
+Completed 200 OK in 116ms (Views: 105.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:13:50 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (10.0ms)
+  Rendered travels/new.html.haml within layouts/application (20.4ms)
+  Rendered sessions/_flash_message.html.haml (4.4ms)
+Completed 200 OK in 78ms (Views: 69.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:15:32 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (12.8ms)
+  Rendered travels/new.html.haml within layouts/application (37.1ms)
+  Rendered sessions/_flash_message.html.haml (3.5ms)
+Completed 200 OK in 91ms (Views: 84.4ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:16:53 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (7.6ms)
+  Rendered travels/new.html.haml within layouts/application (17.5ms)
+  Rendered sessions/_flash_message.html.haml (4.4ms)
+Completed 200 OK in 70ms (Views: 64.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:17:12 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (6.9ms)
+  Rendered travels/new.html.haml within layouts/application (14.8ms)
+  Rendered sessions/_flash_message.html.haml (4.2ms)
+Completed 200 OK in 71ms (Views: 64.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:21:36 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (10.1ms)
+  Rendered travels/new.html.haml within layouts/application (20.4ms)
+  Rendered sessions/_flash_message.html.haml (4.6ms)
+Completed 200 OK in 77ms (Views: 71.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:23:47 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (7.9ms)
+  Rendered travels/new.html.haml within layouts/application (18.4ms)
+  Rendered sessions/_flash_message.html.haml (4.9ms)
+Completed 200 OK in 79ms (Views: 74.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:25:53 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (9.3ms)
+  Rendered travels/new.html.haml within layouts/application (21.3ms)
+  Rendered sessions/_flash_message.html.haml (4.5ms)
+Completed 200 OK in 77ms (Views: 72.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:26:01 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (9.7ms)
+  Rendered travels/new.html.haml within layouts/application (20.3ms)
+  Rendered sessions/_flash_message.html.haml (5.7ms)
+Completed 200 OK in 82ms (Views: 74.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:26:22 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (9.2ms)
+  Rendered travels/new.html.haml within layouts/application (18.2ms)
+Completed 500 Internal Server Error in 34ms (ActiveRecord: 0.2ms)
+
+
+  
+SyntaxError (/Users/ada/learning/apps/travel_blog/app/views/travels/_form.html.haml:3: syntax error, unexpected ':', expecting ')'
+..."col-sm-5"}, nil, style: width: :"300px" )).to_s);; _hamlout...
+...                               ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/_form.html.haml:3: syntax error, unexpected ')', expecting keyword_end
+...style: width: :"300px" )).to_s);; _hamlout.buffer << (">\n"....
+...                               ^):
+  
+app/views/travels/_form.html.haml:3: syntax error, unexpected ':', expecting ')'
+app/views/travels/_form.html.haml:3: syntax error, unexpected ')', expecting keyword_end
+app/views/travels/new.html.haml:3:in `block in _app_views_travels_new_html_haml___1236857408144642337_70123364866420'
+app/views/travels/new.html.haml:2:in `_app_views_travels_new_html_haml___1236857408144642337_70123364866420'
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:30:16 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (3.1ms)
+  Rendered travels/new.html.haml within layouts/application (11.6ms)
+Completed 500 Internal Server Error in 29ms (ActiveRecord: 0.2ms)
+
+
+  
+ActionView::Template::Error (Illegal nesting: content can't be both given on the same line as %html: and nested within it.):
+    2:   %div.row
+    3:     %div.col-sm-5
+    4:     %html: { style: width: :"300px" }
+    5:       = f.label :title
+    6:       %br/
+    7:       = f.text_field :title
+    8:     %div.col-sm-5
+  
+app/views/travels/_form.html.haml:5
+app/views/travels/new.html.haml:3:in `block in _app_views_travels_new_html_haml___1236857408144642337_70123325493980'
+app/views/travels/new.html.haml:2:in `_app_views_travels_new_html_haml___1236857408144642337_70123325493980'
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:30:30 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (8.7ms)
+  Rendered travels/new.html.haml within layouts/application (20.9ms)
+Completed 500 Internal Server Error in 39ms (ActiveRecord: 2.3ms)
+
+
+  
+SyntaxError (/Users/ada/learning/apps/travel_blog/app/views/travels/_form.html.haml:4: syntax error, unexpected ':', expecting ')'
+...tributes({}, nil, style: width: :"300px" )).to_s);; _hamlout...
+...                               ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/_form.html.haml:4: syntax error, unexpected ')', expecting keyword_end
+...style: width: :"300px" )).to_s);; _hamlout.buffer << (">\n"....
+...                               ^):
+  
+app/views/travels/_form.html.haml:4: syntax error, unexpected ':', expecting ')'
+app/views/travels/_form.html.haml:4: syntax error, unexpected ')', expecting keyword_end
+app/views/travels/new.html.haml:3:in `block in _app_views_travels_new_html_haml___1236857408144642337_70123348187060'
+app/views/travels/new.html.haml:2:in `_app_views_travels_new_html_haml___1236857408144642337_70123348187060'
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:30:50 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (9.9ms)
+  Rendered travels/new.html.haml within layouts/application (19.3ms)
+  Rendered sessions/_flash_message.html.haml (4.1ms)
+Completed 200 OK in 77ms (Views: 72.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:32:42 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/new.html.haml within layouts/application (5.0ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 0.3ms)
+
+
+  
+SyntaxError (/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected ':', expecting keyword_end
+...haml_temp =  form_for @travel :html{class: :"form-horizontal...
+...                               ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected ':'
+...  form_for @travel :html{class: :"form-horizontal center"} d...
+...                               ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected keyword_do_block, expecting keyword_end
+...: :"form-horizontal center"} do |f|
+...                               ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:13: syntax error, unexpected keyword_ensure, expecting end-of-input):
+  
+app/views/travels/new.html.haml:2: syntax error, unexpected ':', expecting keyword_end
+app/views/travels/new.html.haml:2: syntax error, unexpected ':'
+app/views/travels/new.html.haml:2: syntax error, unexpected keyword_do_block, expecting keyword_end
+app/views/travels/new.html.haml:13: syntax error, unexpected keyword_ensure, expecting end-of-input
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:32:56 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/new.html.haml within layouts/application (6.6ms)
+Completed 500 Internal Server Error in 25ms (ActiveRecord: 0.2ms)
+
+
+  
+SyntaxError (/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected '{', expecting keyword_end
+...emp =  form_for @travel, :html{class: :"form-horizontal cent...
+...                               ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected '}', expecting keyword_end
+...ass: :"form-horizontal center"} do |f|
+...                               ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:13: syntax error, unexpected keyword_ensure, expecting end-of-input):
+  
+app/views/travels/new.html.haml:2: syntax error, unexpected '{', expecting keyword_end
+app/views/travels/new.html.haml:2: syntax error, unexpected '}', expecting keyword_end
+app/views/travels/new.html.haml:13: syntax error, unexpected keyword_ensure, expecting end-of-input
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:33:13 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/new.html.haml within layouts/application (3.6ms)
+Completed 500 Internal Server Error in 21ms (ActiveRecord: 0.2ms)
+
+
+  
+SyntaxError (/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected '{', expecting keyword_end
+haml_temp =  form_for @travel, :html{class: :"form-control"} do |f|
+                                     ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected '}', expecting keyword_end
+haml_temp =  form_for @travel, :html{class: :"form-control"} do |f|
+                                                            ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:13: syntax error, unexpected keyword_ensure, expecting end-of-input):
+  
+app/views/travels/new.html.haml:2: syntax error, unexpected '{', expecting keyword_end
+app/views/travels/new.html.haml:2: syntax error, unexpected '}', expecting keyword_end
+app/views/travels/new.html.haml:13: syntax error, unexpected keyword_ensure, expecting end-of-input
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:34:29 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/new.html.haml within layouts/application (6.5ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 0.2ms)
+
+
+  
+SyntaxError (/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected '{', expecting keyword_end
+haml_temp =  form_for @travel, :html{ style: :"width:300px" } do |f|
+                                     ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected '}', expecting keyword_end
+haml_temp =  form_for @travel, :html{ style: :"width:300px" } do |f|
+                                                             ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:13: syntax error, unexpected keyword_ensure, expecting end-of-input):
+  
+app/views/travels/new.html.haml:2: syntax error, unexpected '{', expecting keyword_end
+app/views/travels/new.html.haml:2: syntax error, unexpected '}', expecting keyword_end
+app/views/travels/new.html.haml:13: syntax error, unexpected keyword_ensure, expecting end-of-input
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:34:39 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/new.html.haml within layouts/application (6.4ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 0.2ms)
+
+
+  
+SyntaxError (/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected ':', expecting keyword_end
+haml_temp =  form_for @travel :html{ style: :"width:300px" } do |f|
+                               ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected ':', expecting '}'
+haml_temp =  form_for @travel :html{ style: :"width:300px" } do |f|
+                                           ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected keyword_do_block, expecting keyword_end
+haml_temp =  form_for @travel :html{ style: :"width:300px" } do |f|
+                                                               ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:13: syntax error, unexpected keyword_ensure, expecting end-of-input):
+  
+app/views/travels/new.html.haml:2: syntax error, unexpected ':', expecting keyword_end
+app/views/travels/new.html.haml:2: syntax error, unexpected ':', expecting '}'
+app/views/travels/new.html.haml:2: syntax error, unexpected keyword_do_block, expecting keyword_end
+app/views/travels/new.html.haml:13: syntax error, unexpected keyword_ensure, expecting end-of-input
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:34:56 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/new.html.haml within layouts/application (5.0ms)
+Completed 500 Internal Server Error in 24ms (ActiveRecord: 0.2ms)
+
+
+  
+SyntaxError (/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected {, expecting tSTRING_CONTENT or tSTRING_DBEG or tSTRING_DVAR or tSTRING_END
+haml_temp =  form_for @travel, html: :{ style: :"width:300px" } do |f|
+                                       ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:2: syntax error, unexpected keyword_do_block, expecting keyword_end
+haml_temp =  form_for @travel, html: :{ style: :"width:300px" } do |f|
+                                                                  ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:9: syntax error, unexpected keyword_do_block, expecting keyword_end
+ @travel.errors.full_messages.each do |msg|
+                                     ^
+/Users/ada/learning/apps/travel_blog/app/views/travels/new.html.haml:12: syntax error, unexpected keyword_ensure, expecting end-of-input
+...:Util.html_safe(_erbout);ensure;@haml_buffer = @haml_buffer....
+...                               ^):
+  
+app/views/travels/new.html.haml:2: syntax error, unexpected {, expecting tSTRING_CONTENT or tSTRING_DBEG or tSTRING_DVAR or tSTRING_END
+app/views/travels/new.html.haml:2: syntax error, unexpected keyword_do_block, expecting keyword_end
+app/views/travels/new.html.haml:9: syntax error, unexpected keyword_do_block, expecting keyword_end
+app/views/travels/new.html.haml:12: syntax error, unexpected keyword_ensure, expecting end-of-input
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:35:05 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (6.4ms)
+  Rendered travels/new.html.haml within layouts/application (16.3ms)
+  Rendered sessions/_flash_message.html.haml (4.0ms)
+Completed 200 OK in 76ms (Views: 67.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:35:38 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (7.8ms)
+  Rendered travels/new.html.haml within layouts/application (39.8ms)
+  Rendered sessions/_flash_message.html.haml (5.0ms)
+Completed 200 OK in 105ms (Views: 96.7ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-03 21:36:18 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (13.9ms)
+  Rendered travels/new.html.haml within layouts/application (25.6ms)
+  Rendered sessions/_flash_message.html.haml (4.0ms)
+Completed 200 OK in 100ms (Views: 93.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/welcome" for 127.0.0.1 at 2018-08-03 21:51:58 +0200
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (4.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.8ms)
+Completed 200 OK in 90ms (Views: 72.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-03 21:51:59 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (9.1ms)
+  Rendered sessions/_flash_message.html.haml (5.1ms)
+Completed 200 OK in 133ms (Views: 126.5ms | ActiveRecord: 0.6ms)
+
+

@@ -1,0 +1,15 @@
+%div.controls
+  %div.row
+    %div.col-sm-5
+      = f.label :title
+      %br/
+      = f.text_field :title
+    %div.col-sm-5
+      = f.label :travel_date
+      %br/
+      = f.date_field :travel_date
+  %div.row
+    %div.col-sm-10
+      = f.label :description
+      %br/
+      = f.text_area :description, rows: :"10"

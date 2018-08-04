@@ -1,0 +1,13 @@
+wheather add here 
+%h1 List of Your travels:
+- if @travels == nil
+  %p There are not any travels currently in the system. Please, add Your memories.
+- else
+  %ul
+    - @travels.each do |t|
+      %li
+        = link_to t.title, t
+        = link_to t.travel_date, t
+%div.btn-toolbar
+  %div.btn-group-horizontal
+    %p= link_to('Add new travel', new_travel_path, class: "btn btn-success")

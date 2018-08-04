@@ -1,0 +1,10 @@
+%h1
+  = @travel.title 
+  = @travel.travel_date
+%p
+  %strong Description:
+  = @travel.description
+%hr/
+%p= link_to 'Back', { action: 'index' }
+%p= link_to 'Edit', { action: 'edit' }
+%p= link_to 'Delete', @travel, method: :delete, data: { confirm: 'Are you sure?' }

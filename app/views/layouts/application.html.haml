@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv": "Content-Type"}/
+    %title TravelBlog
+    = csrf_meta_tags
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    %link{href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel: "stylesheet"}/
+  %body
+    %nav.navbar.navbar-inverse
+      %div.container-fluid
+        %div.navbar-header
+          = link_to 'Travel Blog', { action: 'index', controller: 'welcome' }, class: 'navbar-brand'
+          %ul.nav.navbar-nav
+            %li
+              = link_to 'My travels', { action: 'index', controller: 'travels' }
+            - if current_user.nil?
+              %li
+                = link_to 'Login', { action: 'new', controller: 'sessions' }
+              %li
+                = link_to 'Create an account', { action: 'new', controller: 'accounts' }
+            - else
+              %li
+                = link_to 'Logout', { action: 'destroy', controller: 'sessions' }
+    %div.container
+      %div.jumbotron
+        %div
+          = render partial: 'sessions/flash_message.html.haml'
+        = yield
+    %div.navbar.navbar-default.navbar-fixed-bottom
+      .container-fluid
+        %p.navbar-text= "© 2018 Copyright:" 
+        %a.navbar-text{ :href => "https://cool-beetles.github.io" } cool-beetles
+

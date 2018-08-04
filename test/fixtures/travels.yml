@@ -1,0 +1,12 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+
+london:
+  user: writer
+  title: Holiday in London
+  description: I spend my last holiday in London
+
+warsaw:
+  user: writer
+  title: Last weekend
+  description : I visited my friends.

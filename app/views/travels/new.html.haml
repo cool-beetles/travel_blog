@@ -1,0 +1,11 @@
+%h1 Add new travel:
+= form_for @travel do |f|
+  = render partial: 'form', locals: { f: f }
+  = f.submit "Create"
+  - if @travel.errors.any?
+    %div
+      %h3 Please fix these errors:
+      %ul
+        - @travel.errors.full_messages.each do |msg|
+          %li= msg
+%p= link_to('Back', travels_path, class: "btn btn-success")
