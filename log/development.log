@@ -2649,3 +2649,122 @@ Processing by TravelsController#index as HTML
 Completed 200 OK in 133ms (Views: 126.5ms | ActiveRecord: 0.6ms)
 
 
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to FixColumnNameForTravel (20180804171402)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TEMPORARY TABLE "atravels" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer DEFAULT NULL, "city_name" varchar DEFAULT NULL, "description" varchar DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "travel_date" date DEFAULT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_travels_on_travel_date' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_travels_on_travel_date' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "tindex_atravels_on_travel_date" ON "atravels" ("travel_date")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "atravels" ("id","user_id","city_name","description","created_at","updated_at","travel_date")
+                     SELECT "id","user_id","title","description","created_at","updated_at","travel_date" FROM "travels"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "travels"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "travels" ("id" integer NOT NULL PRIMARY KEY, "user_id" integer DEFAULT NULL, "city_name" varchar DEFAULT NULL, "description" varchar DEFAULT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "travel_date" date DEFAULT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='tindex_atravels_on_travel_date' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='tindex_atravels_on_travel_date' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_travels_on_travel_date" ON "travels" ("travel_date")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "travels" ("id","user_id","city_name","description","created_at","updated_at","travel_date")
+                     SELECT "id","user_id","city_name","description","created_at","updated_at","travel_date" FROM "atravels"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mDROP TABLE "atravels"[0m
+  [1m[35m (0.2ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_travels_on_travel_date' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_travels_on_travel_date' AND type='index'
+[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180804171402"]]
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2018-08-04 19:51:58 +0200
+  [1m[35m (7.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.haml within layouts/application
+  Rendered welcome/index.html.haml within layouts/application (12.7ms)
+  [1m[36mUser Load (7.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered sessions/_flash_message.html.haml (4.2ms)
+Completed 200 OK in 907ms (Views: 833.3ms | ActiveRecord: 8.5ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-04 19:52:02 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.5ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (13.2ms)
+  Rendered sessions/_flash_message.html.haml (3.9ms)
+Completed 200 OK in 107ms (Views: 54.8ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/travels/new" for 127.0.0.1 at 2018-08-04 19:52:04 +0200
+Processing by TravelsController#new as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (17.5ms)
+  Rendered travels/new.html.haml within layouts/application (27.9ms)
+  Rendered sessions/_flash_message.html.haml (5.5ms)
+Completed 200 OK in 151ms (Views: 124.2ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/travels" for 127.0.0.1 at 2018-08-04 19:52:06 +0200
+Processing by TravelsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"OqFU4unipm8n76mhaYbrtDG/H7Ny04LFxA0ipd8Cc5bwnpdeXgo/TsjSnSrwkRPA/ElkhnyEGLSJZG3i597eRw==", "travel"=>{"city_name"=>"", "travel_date"=>"", "description"=>""}, "commit"=>"Create"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  Rendering travels/new.html.haml within layouts/application
+  Rendered travels/_form.html.haml (10.4ms)
+  Rendered travels/new.html.haml within layouts/application (19.7ms)
+  Rendered sessions/_flash_message.html.haml (4.5ms)
+Completed 200 OK in 86ms (Views: 71.6ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/travels" for 127.0.0.1 at 2018-08-04 19:52:22 +0200
+Processing by TravelsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"bTS7A7eNoxD0qG9oRTRERrEa6PwO60I4+T26XZK8f1J2lueaTOQCquUpm1p6sob8qruOICMdtGVUT7uOcKCbDA==", "travel"=>{"city_name"=>"London", "travel_date"=>"2018-08-21", "description"=>"test"}, "commit"=>"Create"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (21.6ms)[0m  [1m[32mINSERT INTO "travels" ("user_id", "city_name", "description", "created_at", "updated_at", "travel_date") VALUES (?, ?, ?, ?, ?, ?)[0m  [["user_id", 1], ["city_name", "London"], ["description", "test"], ["created_at", "2018-08-04 17:52:22.516555"], ["updated_at", "2018-08-04 17:52:22.516555"], ["travel_date", "2018-08-21"]]
+  [1m[35m (14.5ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/travels/1
+Completed 302 Found in 48ms (ActiveRecord: 36.5ms)
+
+
+Started GET "/travels/1" for 127.0.0.1 at 2018-08-04 19:52:22 +0200
+Processing by TravelsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTravel Load (0.3ms)[0m  [1m[34mSELECT  "travels".* FROM "travels" WHERE "travels"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/show.html.haml within layouts/application
+  Rendered travels/show.html.haml within layouts/application (6.0ms)
+  Rendered sessions/_flash_message.html.haml (7.1ms)
+Completed 200 OK in 79ms (Views: 72.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/travels" for 127.0.0.1 at 2018-08-04 19:52:25 +0200
+Processing by TravelsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering travels/index.html.haml within layouts/application
+  [1m[36mTravel Load (0.2ms)[0m  [1m[34mSELECT "travels".* FROM "travels" WHERE "travels"."user_id" = ?[0m  [["user_id", 1]]
+  Rendered travels/index.html.haml within layouts/application (9.7ms)
+  Rendered sessions/_flash_message.html.haml (5.5ms)
+Completed 200 OK in 84ms (Views: 77.9ms | ActiveRecord: 0.5ms)
+
+

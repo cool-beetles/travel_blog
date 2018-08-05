@@ -14,7 +14,7 @@ class TravelsController < ApplicationController
   end
 
   def create
-    @travels = current_user.travels.build(params_travel)
+    @travel = current_user.travels.build(params_travel)
    
     if @travel.save
       redirect_to @travel 
@@ -50,6 +50,6 @@ class TravelsController < ApplicationController
   private
   
   def params_travel
-    params.require(:travel).permit(:title, :description)
+    params.require(:travel).permit(:city_name, :travel_date, :description)
   end
 end
